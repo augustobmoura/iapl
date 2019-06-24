@@ -11,29 +11,30 @@ class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1
 
-    String email
-    String password
     String nome
-    Integer idade
+    String email
+    String senha
+    Date dataNascimento
     String cpf
-    boolean enabled = true
-    boolean accountExpired
-    boolean accountLocked
-    boolean passwordExpired
+    boolean ativado = true
+    boolean expirou
+    boolean bloqueado
+    boolean senhaExpirou
 
     Set<Papel> getAuthorities() {
         (UsuarioPapel.findAllByUsuario(this) as List<UsuarioPapel>)*.papel as Set<Papel>
     }
 
     static constraints = {
-        password nullable: false, blank: false, password: true
-        email nullable: false, blank: false, unique: true
+        senha nullable: false, blank: false, password: true
+        email nullable: false, blank: false, unique: true, email: true
         nome nullable: false, blank: false
-        idade nullable: false, min: 0
+        dataNascimento nullable: false
         cpf nullable: true
     }
 
     static mapping = {
-        password column: '`password`'
+        tablePerHierarchy false
+        senha column: '`senha`'
     }
 }

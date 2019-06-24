@@ -5,13 +5,13 @@ import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class AlunoControllerSpec extends Specification implements ControllerUnitTest<AlunoController>, DomainUnitTest<Aluno> {
+class AlunosAdminControllerSpec extends Specification implements ControllerUnitTest<AlunosAdminController>, DomainUnitTest<Aluno> {
 
     def populateValidParams(params) {
         assert params != null
 
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        //params["nome"] = 'someValidName'
         assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 

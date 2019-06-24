@@ -1,5 +1,5 @@
 package br.uf.es.iapl.turmas.dominio
 
-class ProfessorController {
+class ProfessoresAdminController {
     static scaffold = Professor
 }

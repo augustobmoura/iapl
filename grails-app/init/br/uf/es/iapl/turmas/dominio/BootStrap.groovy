@@ -9,7 +9,7 @@ class BootStrap {
 
     def cadastraAdminSeNecessario() {
         if (Usuario.findByEmail('augusto.borgesm@gmail.com')) {
-            new Professor(email: 'augusto.borgesm@gmail.com', password: 'admin', )
+            new Professor(email: 'augusto.borgesm@gmail.com', senha: 'admin', )
         }
     }
 }

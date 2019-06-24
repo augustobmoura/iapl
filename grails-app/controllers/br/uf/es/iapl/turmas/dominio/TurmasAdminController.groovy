@@ -1,5 +1,5 @@
 package br.uf.es.iapl.turmas.dominio
 
-class TurmaController {
+class TurmasAdminController {
     static scaffold = Turma
 }

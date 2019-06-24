@@ -5,19 +5,19 @@ import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class TurmaControllerSpec extends Specification implements ControllerUnitTest<TurmaController>, DomainUnitTest<Turma> {
+class ProfessoresAdminControllerSpec extends Specification implements ControllerUnitTest<ProfessoresAdminController>, DomainUnitTest<Professor> {
 
     def populateValidParams(params) {
         assert params != null
 
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        //params["nome"] = 'someValidName'
         assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
+        controller.professorService = Mock(ProfessorService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         controller.index()
 
         then:"The model is correct"
-        !model.turmaList
-        model.turmaCount == 0
+        !model.professorList
+        model.professorCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         controller.create()
 
         then:"The model is correctly created"
-        model.turma!= null
+        model.professor!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/turma/index'
+        response.redirectedUrl == '/professor/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
-            1 * save(_ as Turma)
+        controller.professorService = Mock(ProfessorService) {
+            1 * save(_ as Professor)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def turma = new Turma(params)
-        turma.id = 1
+        def professor = new Professor(params)
+        professor.id = 1
 
-        controller.save(turma)
+        controller.save(professor)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/turma/show/1'
+        response.redirectedUrl == '/professor/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
-            1 * save(_ as Turma) >> { Turma turma ->
-                throw new ValidationException("Invalid instance", turma.errors)
+        controller.professorService = Mock(ProfessorService) {
+            1 * save(_ as Professor) >> { Professor professor ->
+                throw new ValidationException("Invalid instance", professor.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def turma = new Turma()
-        controller.save(turma)
+        def professor = new Professor()
+        controller.save(professor)
 
         then:"The create view is rendered again with the correct model"
-        model.turma != null
+        model.professor != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
+        controller.professorService = Mock(ProfessorService) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
 
     void "Test the show action with a valid id"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
-            1 * get(2) >> new Turma()
+        controller.professorService = Mock(ProfessorService) {
+            1 * get(2) >> new Professor()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.turma instanceof Turma
+        model.professor instanceof Professor
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
+        controller.professorService = Mock(ProfessorService) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
-            1 * get(2) >> new Turma()
+        controller.professorService = Mock(ProfessorService) {
+            1 * get(2) >> new Professor()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.turma instanceof Turma
+        model.professor instanceof Professor
     }
 
 
@@ -149,14 +149,14 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/turma/index'
+        response.redirectedUrl == '/professor/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
-            1 * save(_ as Turma)
+        controller.professorService = Mock(ProfessorService) {
+            1 * save(_ as Professor)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def turma = new Turma(params)
-        turma.id = 1
+        def professor = new Professor(params)
+        professor.id = 1
 
-        controller.update(turma)
+        controller.update(professor)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/turma/show/1'
+        response.redirectedUrl == '/professor/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
-            1 * save(_ as Turma) >> { Turma turma ->
-                throw new ValidationException("Invalid instance", turma.errors)
+        controller.professorService = Mock(ProfessorService) {
+            1 * save(_ as Professor) >> { Professor professor ->
+                throw new ValidationException("Invalid instance", professor.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new Turma())
+        controller.update(new Professor())
 
         then:"The edit view is rendered again with the correct model"
-        model.turma != null
+        model.professor != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/turma/index'
+        response.redirectedUrl == '/professor/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.turmaService = Mock(TurmaService) {
+        controller.professorService = Mock(ProfessorService) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class TurmaControllerSpec extends Specification implements ControllerUnitTest<Tu
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/turma/index'
+        response.redirectedUrl == '/professor/index'
         flash.message != null
     }
 }
