@@ -2,6 +2,8 @@ openapi: 3.0.1
 info:
   title: Gerenciador de turmas
   version: 1.0.0
+servers:
+  - url: 'localhost:8080'
 paths:
   /api/alunos:
     get:
