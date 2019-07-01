@@ -33,9 +33,8 @@
 <script src="./swagger-ui-bundle.js"></script>
 <script src="./swagger-ui-standalone-preset.js"></script>
 <script>
-    window.onload = function () {
-        // Begin Swagger UI call region
-        const ui = SwaggerUIBundle({
+    window.addEventListener('load', () => {
+        window.ui = SwaggerUIBundle({
             url: './openapi.yaml',
             dom_id: '#swagger-ui',
             deepLinking: true,
@@ -48,10 +47,7 @@
             ],
             layout: 'StandaloneLayout',
         });
-        // End Swagger UI call region
-
-        window.ui = ui;
-    };
+    });
 </script>
 </body>
 </html>
