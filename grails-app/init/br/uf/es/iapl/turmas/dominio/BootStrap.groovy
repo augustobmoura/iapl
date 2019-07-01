@@ -10,7 +10,14 @@ class BootStrap {
 
     def cadastraAdminSeNecessario() {
         if (Usuario.findByEmail('jpocabral@gmail.com')) {
-            new Professor(email: 'jpocabral@gmail.com', senha: 'admin', )
+            Professor.withNewSession {
+                new Professor(
+                    email: 'jpocabral@gmail.com',
+                    senha: 'admin',
+                    dataNascimento: new Date(),
+                    cpf: '',
+                ).save(flush: true)
+            }
         }
     }
 }
