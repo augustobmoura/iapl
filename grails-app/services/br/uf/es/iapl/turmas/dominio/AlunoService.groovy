@@ -15,4 +15,8 @@ interface AlunoService {
 
     Aluno save(Aluno aluno)
 
+    static class Adapter implements EntityService<Aluno> {
+        @Delegate
+        AlunoService service
+    }
 }

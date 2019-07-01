@@ -4,7 +4,6 @@ import grails.gorm.services.Service
 
 @Service(Professor)
 interface ProfessorService {
-
     Professor get(Serializable id)
 
     List<Professor> list(Map args)
@@ -15,4 +14,8 @@ interface ProfessorService {
 
     Professor save(Professor professor)
 
+    static class Adapter implements EntityService<Professor> {
+        @Delegate
+        ProfessorService service
+    }
 }

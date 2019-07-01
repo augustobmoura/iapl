@@ -15,4 +15,8 @@ interface TurmaService {
 
     Turma save(Turma turma)
 
+    static class Adapter implements EntityService<Turma> {
+        @Delegate
+        TurmaService service
+    }
 }
