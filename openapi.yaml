@@ -1,0 +1,280 @@
+openapi: 3.0.1
+info:
+  title: Gerenciador de turmas
+  version: 1.0.0
+paths:
+  /api/alunos:
+    get:
+      tags:
+        - Aluno
+      summary: Lista alunos
+      operationId: pesquisarUsuarios
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aluno'
+  /api/alunos/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identificador do aluno
+    get:
+      tags:
+        - Aluno
+      summary: Encontra aluno
+      operationId: encontraAlunoPorId
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+        404:
+          description: Aluno não encontrado
+          content: {}
+    delete:
+      tags:
+        - Aluno
+      summary: Apagar aluno
+      operationId: apagarAlunoPorId
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+        404:
+          description: Aluno não encontrado
+          content: {}
+    put:
+      tags:
+        - Aluno
+      summary: Atualizar aluno
+      operationId: apagarAlunoPorId
+      requestBody:
+        description: Conteúdo novo do aluno
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+        404:
+          description: Aluno não encontrado
+          content: {}
+  /api/professores:
+    get:
+      tags:
+        - Professor
+      summary: Lista professores
+      operationId: pesquisarProfessores
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professor'
+  /api/professores/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identificador do professor
+    get:
+      tags:
+        - Professor
+      summary: Encontra professor
+      operationId: encontraProfessorPorId
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        404:
+          description: Professor não encontrado
+          content: {}
+    delete:
+      tags:
+        - Professor
+      summary: Apagar professor
+      operationId: apagarProfessorPorId
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        404:
+          description: Professor não encontrado
+          content: {}
+    put:
+      tags:
+        - Professor
+      summary: Atualizar professor
+      operationId: apagarProfessorPorId
+      requestBody:
+        description: Conteúdo novo do professor
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        404:
+          description: Professor não encontrado
+          content: {}
+  /api/turmas:
+    get:
+      tags:
+        - Turma
+      summary: Lista turmas
+      operationId: pesquisarTurmas
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Turma'
+  /api/turmas/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identificador da turma
+    get:
+      tags:
+        - Turma
+      summary: Encontra turma
+      operationId: encontraTurmaPorId
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turma'
+        404:
+          description: Turma não encontrada
+          content: {}
+    delete:
+      tags:
+        - Turma
+      summary: Apagar turma
+      operationId: apagarTurmaPorId
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turma'
+        404:
+          description: Turma não encontrado
+          content: {}
+    put:
+      tags:
+        - Turma
+      summary: Atualizar turma
+      operationId: apagarTurmaPorId
+      requestBody:
+        description: Conteúdo novo da turma
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Turma'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turma'
+        404:
+          description: Professor não encontrado
+          content: {}
+components:
+  schemas:
+    Aluno:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        dataNascimento:
+          type: string
+          format: date
+        cpf:
+          type: string
+        ativado:
+          type: boolean
+        curso:
+          type: string
+    Professor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        dataNascimento:
+          type: string
+          format: date
+        cpf:
+          type: string
+        ativado:
+          type: boolean
+        especialidade:
+          type: string
+    Turma:
+      type: object
+      properties:
+        nome:
+          type: string
+        professor:
+          $ref: '#/components/schemas/Professor'
+        alunos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Aluno'
+
