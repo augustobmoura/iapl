@@ -1,8 +1,11 @@
 package br.uf.es.iapl.turmas.dominio
 
 import grails.converters.JSON
+import grails.gorm.transactions.Transactional
 import grails.web.Action
+import org.grails.datastore.gorm.GormEntity
 
+@Transactional
 abstract class RestController<T> {
 
     abstract EntityService<T> getService()
@@ -34,8 +37,14 @@ abstract class RestController<T> {
 
     @Action
     def create() {
-        def o = empty()
+        GormEntity o = empty()
         bindData(o, request)
+
+        if (!o.validate()) {
+            render([status: 402, contentType: 'application/json'], o.errors as JSON)
+            return
+        }
+
         render(o.save() as JSON)
     }
 
@@ -59,7 +68,7 @@ abstract class RestController<T> {
     @Action
     def update() {
         def id = params.id
-        def o = service.get(id)
+        GormEntity o = service.get(id)
 
         if (o == null) {
             render(
@@ -70,7 +79,13 @@ abstract class RestController<T> {
         }
 
         bindData(o, request)
-        render(o.save() as JSON)
+
+        if (!o.validate()) {
+            render([status: 402, contentType: 'application/json'], o.errors as JSON)
+            return
+        }
+
+        render(o.save(failOnError: true) as JSON)
     }
 
 }
