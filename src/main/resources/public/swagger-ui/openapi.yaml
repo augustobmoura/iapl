@@ -3,7 +3,7 @@ info:
   title: Gerenciador de turmas
   version: 1.0.0
 servers:
-  - url: 'localhost:8080'
+  - url: 'http://localhost:8080'
 paths:
   /api/alunos:
     get:
@@ -20,10 +20,31 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Aluno'
+    post:
+      tags:
+        - Aluno
+      summary: Cadastra aluno
+      operationId: cadastrarUsuarios
+      requestBody:
+        description: Conteúdo novo do aluno
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+      responses:
+        200:
+          description: cadastro realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
   /api/alunos/{id}:
     parameters:
       - in: path
         name: id
+        schema:
+          type: number
         required: true
         description: Identificador do aluno
     get:
@@ -93,10 +114,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Professor'
+    post:
+      tags:
+        - Professor
+      summary: Cadastra professor
+      operationId: cadastrarProfessor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      responses:
+        200:
+          description: cadastro realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
   /api/professores/{id}:
     parameters:
       - in: path
         name: id
+        schema:
+          type: number
         required: true
         description: Identificador do professor
     get:
@@ -166,10 +207,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Turma'
+    post:
+      tags:
+        - Turma
+      summary: Cadastra turma
+      operationId: cadastrarTurma
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Turma'
+      responses:
+        200:
+          description: cadastro realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turma'
   /api/turmas/{id}:
     parameters:
       - in: path
         name: id
+        schema:
+          type: number
         required: true
         description: Identificador da turma
     get:
